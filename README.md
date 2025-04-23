@@ -1,12 +1,3 @@
-Sure! Here's the `README.md` file for download:  
-[Download README.md](sandbox:/mnt/data/OpenPID_README.md)
-
----
-
-### ✅ File content
-
-I'll also save it here so you can preview or copy/paste it directly:
-
 📄 **`OpenPID_README.md`**
 ```markdown
 # OpenPID
