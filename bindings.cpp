@@ -1,7 +1,9 @@
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 #include "pid.hpp"
 #include "msd_system.hpp"
-#include "pendulum_cart.hpp" 
+#include "pendulum_cart.hpp"
+#include "state_feedback.hpp"
 
 namespace py = pybind11;
 
@@ -19,7 +21,7 @@ PYBIND11_MODULE(openpid, m) {
         .def("get_position", &MassSpringDamper<float>::get_position)
         .def("get_velocity", &MassSpringDamper<float>::get_velocity);
 
-        py::class_<PendulumOnCart<float>>(m, "PendulumOnCart")
+    py::class_<PendulumOnCart<float>>(m, "PendulumOnCart")
         .def(py::init<float, float, float, float, float, float>(),  // ← acepta 6 argumentos
              py::arg("mass_cart"), py::arg("mass_pend"), py::arg("length"),
              py::arg("friction_cart"), py::arg("inertia"), py::arg("gravity") = 9.81)
@@ -29,5 +31,10 @@ PYBIND11_MODULE(openpid, m) {
         .def("get_position", &PendulumOnCart<float>::get_position)
         .def("get_velocity", &PendulumOnCart<float>::get_velocity)
         .def("get_angle", &PendulumOnCart<float>::get_angle)
-        .def("get_angular_velocity", &PendulumOnCart<float>::get_angular_velocity);   
+        .def("get_angular_velocity", &PendulumOnCart<float>::get_angular_velocity);  
+
+    py::class_<StateFeedback<float>>(m, "StateFeedback")
+        .def(py::init<float, float, float, float>())
+        .def("set_reference", &StateFeedback<float>::set_reference)
+        .def("compute", &StateFeedback<float>::compute);
 }
