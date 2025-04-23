@@ -1,0 +1,44 @@
+# Build artifacts
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/Makefile
+/cmake_install.cmake
+/*.so
+/*.a
+/*.o
+/*.d
+
+# Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Poetry virtual environment
+.venv/
+
+# Poetry lock file (optional if you want to keep it tracked)
+/poetry.lock
+
+# VS Code settings
+.vscode/
+
+# Log/output files
+*.log
+*.csv
+
+# Mac/Linux OS junk
+.DS_Store
+*.swp
+*~
+
+# Optional: simulate outputs
+/simulate/*.so
+/simulate/__pycache__/
+
+# If you generate Jupyter Notebooks or figures
+*.ipynb
+*.png
+*.svg
+*.pdf

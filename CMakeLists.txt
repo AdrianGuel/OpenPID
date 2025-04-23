@@ -23,3 +23,10 @@ if(RUN_TESTS)
     target_link_libraries(test_pid pid_lib)
     add_test(NAME pid_test COMMAND test_pid)
 endif()
+
+# Add pybind11 as subdirectory if you cloned it locally
+add_subdirectory(pybind11)
+
+# Build Python module
+pybind11_add_module(openpid bindings.cpp)
+target_include_directories(openpid PRIVATE include)

@@ -1,0 +1,18 @@
+[project]
+name = "openpid"
+version = "0.1.0"
+description = "PID control and simulation interface"
+authors = [
+    {name = "AdrianGuel",email = "adrianjguelc@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "plotly (>=6.0.1,<7.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

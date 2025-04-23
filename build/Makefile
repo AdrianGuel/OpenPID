@@ -142,6 +142,43 @@ example_pid/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/example_pid.dir/build.make CMakeFiles/example_pid.dir/build
 .PHONY : example_pid/fast
 
+#=============================================================================
+# Target rules for targets named openpid
+
+# Build rule for target.
+openpid: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 openpid
+.PHONY : openpid
+
+# fast build rule for target.
+openpid/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/build
+.PHONY : openpid/fast
+
+bindings.o: bindings.cpp.o
+.PHONY : bindings.o
+
+# target to build an object file
+bindings.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/bindings.cpp.o
+.PHONY : bindings.cpp.o
+
+bindings.i: bindings.cpp.i
+.PHONY : bindings.i
+
+# target to preprocess a source file
+bindings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/bindings.cpp.i
+.PHONY : bindings.cpp.i
+
+bindings.s: bindings.cpp.s
+.PHONY : bindings.s
+
+# target to generate assembly for a file
+bindings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/bindings.cpp.s
+.PHONY : bindings.cpp.s
+
 examples/example_pid.o: examples/example_pid.cpp.o
 .PHONY : examples/example_pid.o
 
@@ -199,7 +236,11 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... example_pid"
+	@echo "... openpid"
 	@echo "... pid_lib"
+	@echo "... bindings.o"
+	@echo "... bindings.i"
+	@echo "... bindings.s"
 	@echo "... examples/example_pid.o"
 	@echo "... examples/example_pid.i"
 	@echo "... examples/example_pid.s"
