@@ -500,14 +500,13 @@ _Python_DEVELOPMENT_EMBED_SIGNATURE:INTERNAL=858cda7ba04001d5674517c1d81960bc
 _Python_DEVELOPMENT_MODULE_SIGNATURE:INTERNAL=cf2649fabc3b869c91ab6fa9bf3a302e
 //Development reason failure
 _Python_Development_REASON_FAILURE:INTERNAL=
-//Path to a program.
 _Python_EXECUTABLE:INTERNAL=/home/adrianguel/.pyenv/shims/python3
-//Path to a file.
 _Python_INCLUDE_DIR:INTERNAL=/home/adrianguel/.pyenv/versions/3.11.7/include/python3.11
 //Python Properties
 _Python_INTERPRETER_PROPERTIES:INTERNAL=Python;3;11;7;64;;cpython-311-x86_64-linux-gnu;abi3;/home/adrianguel/.pyenv/versions/3.11.7/lib/python3.11;/home/adrianguel/.pyenv/versions/3.11.7/lib/python3.11;/home/adrianguel/.pyenv/versions/3.11.7/lib/python3.11/site-packages;/home/adrianguel/.pyenv/versions/3.11.7/lib/python3.11/site-packages
 _Python_INTERPRETER_SIGNATURE:INTERNAL=bb97e74966417275059c423e7da263cc
-//Path to a library.
+//Interpreter reason failure
+_Python_Interpreter_REASON_FAILURE:INTERNAL=
 _Python_LIBRARY_RELEASE:INTERNAL=/home/adrianguel/.pyenv/versions/3.11.7/lib/libpython3.11.so
 //NumPy reason failure
 _Python_NumPy_REASON_FAILURE:INTERNAL=
