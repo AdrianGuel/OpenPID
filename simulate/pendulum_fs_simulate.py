@@ -4,10 +4,12 @@ import math
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import imageio
+
 # Add path to compiled openpid module
 build_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'build'))
 sys.path.append(build_path)
 import openpid
+
 # Parameters from Processing sketch
 g = 9.81
 M = 0.5
@@ -43,20 +45,21 @@ for i in range(steps):
     positions.append(state[0])
     forces.append(F)
 
-# Layout: plots (left) + animation (right)
+# Layout: stacked rows
 fig = make_subplots(
-    rows=2, cols=2,
-    column_widths=[0.5, 0.5],
-    specs=[[{"type": "xy"}, {"type": "xy", "rowspan": 2}],
-           [{"type": "xy"}, None]],
-    subplot_titles=("Pendulum Angle (rad)", "Animation", "Control Force (N)")
+    rows=3, cols=1,
+    row_heights=[0.3, 0.3, 0.4],
+    specs=[[{"type": "xy"}],
+           [{"type": "xy"}],
+           [{"type": "xy"}]],
+    subplot_titles=("Pendulum Angle (rad)", "Control Force (N)", "Animation")
 )
 
 # Static traces
 fig.add_trace(go.Scatter(x=[], y=[], name="Angle", mode="lines"), row=1, col=1)
 fig.add_trace(go.Scatter(x=[], y=[], name="Force", mode="lines"), row=2, col=1)
-fig.add_trace(go.Scatter(x=[], y=[], mode="lines+markers", line=dict(width=4), marker=dict(size=10)), row=1, col=2)
-fig.add_trace(go.Scatter(x=[], y=[], fill='toself', mode='lines', line=dict(color="gray"), fillcolor='lightgray'), row=1, col=2)
+fig.add_trace(go.Scatter(x=[], y=[], mode="lines+markers", line=dict(width=4), marker=dict(size=10)), row=3, col=1)
+fig.add_trace(go.Scatter(x=[], y=[], fill='toself', mode='lines', line=dict(color="gray"), fillcolor='lightgray'), row=3, col=1)
 
 # Cart visual constants
 cart_width = 0.4
@@ -89,19 +92,16 @@ for i in range(2, steps):
             go.Scatter(x=cart_xs, y=cart_ys, fill='toself', mode='lines')
         ],
         layout=go.Layout(
-            xaxis=dict(range=[x_min, x_max], anchor="y"),
-            yaxis=dict(range=[angle_min - 0.1, angle_max + 0.1], anchor="x"),
-            xaxis2=dict(range=[x_min, x_max], anchor="y2"),
-            yaxis2=dict(range=[force_min - 1, force_max + 1], anchor="x2"),
-            xaxis3=dict(range=[-2, 2], anchor="y3"),
-            yaxis3=dict(range=[-2, 2], anchor="x3")
+            xaxis=dict(range=[x_min, x_max]),
+            yaxis=dict(range=[angle_min - 0.1, angle_max + 0.1]),
+            xaxis2=dict(range=[x_min, x_max]),
+            yaxis2=dict(range=[force_min - 1, force_max + 1])
         ),
         name=str(i)
     ))
 
 fig.frames = frames
 
-# Layout
 fig.update_layout(
     updatemenus=[{
         "type": "buttons",
@@ -115,17 +115,19 @@ fig.update_layout(
             }]
         }]
     }],
-    height=700,
+    height=900,
     title="Inverted Pendulum with Full-State Feedback: Plots + Animated Cart",
-    showlegend=False
+    showlegend=False,
+    xaxis3=dict(range=[-2, 2], anchor="y3", title="Position (m)"),
+    yaxis3=dict(range=[-2, 2], anchor="x3", title="Height (m)")
 )
 
 # Axes
 fig.update_yaxes(title_text="Angle (rad)", row=1, col=1)
 fig.update_yaxes(title_text="Force (N)", row=2, col=1)
 fig.update_xaxes(title_text="Time (s)", row=2, col=1)
-fig.update_xaxes(title_text="Position (m)", row=1, col=2, range=[-2, 2])
-fig.update_yaxes(title_text="Height (m)", row=1, col=2, range=[-2, 2])
+fig.update_xaxes(title_text="Position (m)", row=3, col=1, range=[-2, 2])
+fig.update_yaxes(title_text="Height (m)", row=3, col=1, range=[-2, 2])
 
 fig.show()
 
@@ -134,7 +136,7 @@ gif_path = "pendulum_animation.gif"
 
 for i, frame in enumerate(fig.frames):
     fig.update(data=frame.data, layout=frame.layout)
-    fig.write_image(f"gif_frames/frame_{i:04d}.png", width=800, height=600)
+    fig.write_image(f"gif_frames/frame_{i:04d}.png", width=800, height=900)
 
 with imageio.get_writer(gif_path, mode='I', duration=0.01) as writer:
     for i in range(len(fig.frames)):
