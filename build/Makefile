@@ -85,6 +85,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Devel\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adrianguel/Documents/CodeControl/OpenPID/build/CMakeFiles /home/adrianguel/Documents/CodeControl/OpenPID/build//CMakeFiles/progress.marks
@@ -203,6 +248,30 @@ examples/example_pid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/example_pid.dir/build.make CMakeFiles/example_pid.dir/examples/example_pid.cpp.s
 .PHONY : examples/example_pid.cpp.s
 
+src/missile_6dof_quat.o: src/missile_6dof_quat.cpp.o
+.PHONY : src/missile_6dof_quat.o
+
+# target to build an object file
+src/missile_6dof_quat.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pid_lib.dir/build.make CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o
+.PHONY : src/missile_6dof_quat.cpp.o
+
+src/missile_6dof_quat.i: src/missile_6dof_quat.cpp.i
+.PHONY : src/missile_6dof_quat.i
+
+# target to preprocess a source file
+src/missile_6dof_quat.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pid_lib.dir/build.make CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.i
+.PHONY : src/missile_6dof_quat.cpp.i
+
+src/missile_6dof_quat.s: src/missile_6dof_quat.cpp.s
+.PHONY : src/missile_6dof_quat.s
+
+# target to generate assembly for a file
+src/missile_6dof_quat.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pid_lib.dir/build.make CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.s
+.PHONY : src/missile_6dof_quat.cpp.s
+
 src/pid.o: src/pid.cpp.o
 .PHONY : src/pid.o
 
@@ -234,6 +303,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... example_pid"
 	@echo "... openpid"
@@ -244,6 +317,9 @@ help:
 	@echo "... examples/example_pid.o"
 	@echo "... examples/example_pid.i"
 	@echo "... examples/example_pid.s"
+	@echo "... src/missile_6dof_quat.o"
+	@echo "... src/missile_6dof_quat.i"
+	@echo "... src/missile_6dof_quat.s"
 	@echo "... src/pid.o"
 	@echo "... src/pid.i"
 	@echo "... src/pid.s"

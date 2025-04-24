@@ -1,9 +1,11 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/eigen.h> 
 #include "pid.hpp"
 #include "msd_system.hpp"
 #include "pendulum_cart.hpp"
 #include "state_feedback.hpp"
+#include "missile_6dof_quat.hpp"
 
 namespace py = pybind11;
 
@@ -37,4 +39,11 @@ PYBIND11_MODULE(openpid, m) {
         .def(py::init<float, float, float, float>())
         .def("set_reference", &StateFeedback<float>::set_reference)
         .def("compute", &StateFeedback<float>::compute);
+
+    py::class_<Missile6DOFQuat>(m, "Missile6DOFQuat")
+        .def(py::init<>())
+        .def("reset_state", &Missile6DOFQuat::reset_state)
+        .def("get_state", &Missile6DOFQuat::get_state)
+        .def("set_state", &Missile6DOFQuat::set_state)
+        .def("dynamics", &Missile6DOFQuat::dynamics);        
 }

@@ -1,2 +1,2 @@
-/usr/bin/ar qc libpid_lib.a CMakeFiles/pid_lib.dir/src/pid.cpp.o
+/usr/bin/ar qc libpid_lib.a CMakeFiles/pid_lib.dir/src/pid.cpp.o CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o
 /usr/bin/ranlib libpid_lib.a

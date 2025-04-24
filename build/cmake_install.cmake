@@ -44,6 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/home/adrianguel/Documents/CodeControl/OpenPID/build/external/eigen/cmake_install.cmake")
   include("/home/adrianguel/Documents/CodeControl/OpenPID/build/pybind11/cmake_install.cmake")
 
 endif()

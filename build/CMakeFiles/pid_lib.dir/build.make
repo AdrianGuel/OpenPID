@@ -83,17 +83,33 @@ CMakeFiles/pid_lib.dir/src/pid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pid_lib.dir/src/pid.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adrianguel/Documents/CodeControl/OpenPID/src/pid.cpp -o CMakeFiles/pid_lib.dir/src/pid.cpp.s
 
+CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o: CMakeFiles/pid_lib.dir/flags.make
+CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o: /home/adrianguel/Documents/CodeControl/OpenPID/src/missile_6dof_quat.cpp
+CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o: CMakeFiles/pid_lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/adrianguel/Documents/CodeControl/OpenPID/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o -MF CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o.d -o CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o -c /home/adrianguel/Documents/CodeControl/OpenPID/src/missile_6dof_quat.cpp
+
+CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adrianguel/Documents/CodeControl/OpenPID/src/missile_6dof_quat.cpp > CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.i
+
+CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adrianguel/Documents/CodeControl/OpenPID/src/missile_6dof_quat.cpp -o CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.s
+
 # Object files for target pid_lib
 pid_lib_OBJECTS = \
-"CMakeFiles/pid_lib.dir/src/pid.cpp.o"
+"CMakeFiles/pid_lib.dir/src/pid.cpp.o" \
+"CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o"
 
 # External object files for target pid_lib
 pid_lib_EXTERNAL_OBJECTS =
 
 libpid_lib.a: CMakeFiles/pid_lib.dir/src/pid.cpp.o
+libpid_lib.a: CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o
 libpid_lib.a: CMakeFiles/pid_lib.dir/build.make
 libpid_lib.a: CMakeFiles/pid_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/adrianguel/Documents/CodeControl/OpenPID/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libpid_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/adrianguel/Documents/CodeControl/OpenPID/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libpid_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/pid_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pid_lib.dir/link.txt --verbose=$(VERBOSE)
 
