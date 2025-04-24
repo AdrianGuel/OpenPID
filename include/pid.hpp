@@ -25,7 +25,7 @@ public:
         return output;
     }
 
-    // Recursive PID (as in your OpenProcessing sketch)
+    // Recursive PID
     T compute_recursive(T setpoint, T measurement, T dt) {
         T ek = setpoint - measurement;
         T output = uk1_ + (kp_ + ki_ * dt + kd_ / dt) * ek
