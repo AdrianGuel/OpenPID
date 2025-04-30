@@ -4,6 +4,7 @@ import math
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import imageio
+import numpy as np
 
 # Add path to compiled openpid module
 build_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'build'))
@@ -20,23 +21,25 @@ l = 0.3
 dt = 0.05
 
 # Full-state feedback gains
-k1 = -1.0000
-k2 = -1.6567
-k3 = 18.6854
-k4 = 3.4594
+K = np.array([-1.0000, -1.6567, 18.6854, 3.4594], dtype=np.float32)
+reference = np.array([0.0, 0.0, math.pi, 0.0], dtype=np.float32)
 
-# System + controller
 pend = openpid.PendulumOnCart(M, m, l, b, I, g)
 pend.reset(x0=1.5, v0=0.0, theta0=math.pi + 0.01, omega0=0.2)
-sf = openpid.StateFeedback(k1, k2, k3, k4)
-sf.set_reference(math.pi)
+sf = openpid.StateFeedback(K)
+sf.set_reference(reference)
 
 steps = 160
 times, angles, positions, forces = [], [], [], []
 
 for i in range(steps):
     t = i * dt
-    state = [pend.get_position(), pend.get_velocity(), pend.get_angle(), pend.get_angular_velocity()]
+    state = np.array([
+        pend.get_position(),
+        pend.get_velocity(),
+        pend.get_angle(),
+        pend.get_angular_velocity()
+    ], dtype=np.float32)
     F = sf.compute(state)
     pend.update(F, dt)
 

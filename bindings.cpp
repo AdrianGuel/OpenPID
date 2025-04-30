@@ -35,10 +35,10 @@ PYBIND11_MODULE(openpid, m) {
         .def("get_angle", &PendulumOnCart<float>::get_angle)
         .def("get_angular_velocity", &PendulumOnCart<float>::get_angular_velocity);  
 
-    py::class_<StateFeedback<float>>(m, "StateFeedback")
-        .def(py::init<float, float, float, float>())
-        .def("set_reference", &StateFeedback<float>::set_reference)
-        .def("compute", &StateFeedback<float>::compute);
+    py::class_<StateFeedback<float, 4>>(m, "StateFeedback")
+        .def(py::init<const Eigen::Matrix<float, 4, 1>&>())
+        .def("set_reference", &StateFeedback<float, 4>::set_reference)
+        .def("compute", &StateFeedback<float, 4>::compute);    
 
     py::class_<Missile6DOFQuat>(m, "Missile6DOFQuat")
         .def(py::init<>())
