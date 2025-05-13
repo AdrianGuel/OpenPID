@@ -1,7 +1,6 @@
 #ifndef GENERIC_SYSTEM_HPP
 #define GENERIC_SYSTEM_HPP
 
-#include <pybind11/functional.h>
 #include <Eigen/Dense>
 #include <functional>
 

@@ -1,4 +1,5 @@
 #include <pybind11/pybind11.h>
+#include <pybind11/functional.h>
 #include <pybind11/stl.h>
 #include <pybind11/eigen.h> 
 #include "pid.hpp"
@@ -6,6 +7,7 @@
 #include "generic_system.hpp"
 
 namespace py = pybind11;
+using GenericSystemF = GenericSystem<float>;
 
 PYBIND11_MODULE(openpid, m) {
     py::class_<PID<float>>(m, "PID")
@@ -14,11 +16,16 @@ PYBIND11_MODULE(openpid, m) {
     .def("compute", &PID<float>::compute)
     .def("compute_recursive", &PID<float>::compute_recursive); 
 
-    py::class_<GenericSystem<float>>(m, "GenericSystem")
-        .def(py::init<GenericSystem<float>::DynamicsFunc, const Eigen::VectorXf&>())
-        .def("reset", &GenericSystem<float>::reset)
-        .def("update", &GenericSystem<float>::update)
-        .def("get_state", &GenericSystem<float>::get_state);
+    py::class_<GenericSystemF>(m, "GenericSystem")
+        .def(py::init([](py::function f, const Eigen::VectorXf& x0) {
+            auto wrapper = [f](const Eigen::VectorXf& x, const Eigen::VectorXf& u) {
+                return f(x, u).cast<Eigen::VectorXf>();
+            };
+            return new GenericSystemF(wrapper, x0);
+        }))
+        .def("reset", &GenericSystemF::reset)
+        .def("update", &GenericSystemF::update)
+        .def("get_state", &GenericSystemF::get_state);
 
     py::class_<StateFeedback<float, 4>>(m, "StateFeedback")
         .def(py::init<const Eigen::Matrix<float, 4, 1>&>())
