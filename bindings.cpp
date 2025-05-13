@@ -6,6 +6,7 @@
 #include "pendulum_cart.hpp"
 #include "state_feedback.hpp"
 #include "missile_6dof_quat.hpp"
+#include "generic_system.hpp"
 
 namespace py = pybind11;
 
@@ -15,6 +16,12 @@ PYBIND11_MODULE(openpid, m) {
     .def("reset", &PID<float>::reset)
     .def("compute", &PID<float>::compute)
     .def("compute_recursive", &PID<float>::compute_recursive); 
+
+    py::class_<GenericSystem<float>>(m, "GenericSystem")
+        .def(py::init<GenericSystem<float>::DynamicsFunc, const Eigen::VectorXf&>())
+        .def("reset", &GenericSystem<float>::reset)
+        .def("update", &GenericSystem<float>::update)
+        .def("get_state", &GenericSystem<float>::get_state);
 
     py::class_<MassSpringDamper<float>>(m, "MassSpringDamper")
         .def(py::init<float, float, float>())
