@@ -11,6 +11,42 @@ build_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'buil
 sys.path.append(build_path)
 import openpid
 
+def pendulum_cart_dynamics(x, u):
+    # State variables
+    pos, vel, theta, omega = x
+    F = u[0]
+
+    # Parameters
+    M = 0.5     # cart mass
+    m = 0.2     # pendulum mass
+    l = 0.3     # length to pendulum center of mass
+    b = 0.1     # friction coefficient
+    I = 0.006   # moment of inertia
+    g = 9.81    # gravity
+
+    sin_theta = np.sin(theta)
+    cos_theta = np.cos(theta)
+    denom = (I + m * l**2) * (m + M) - (m**2) * l**2 * cos_theta**2
+
+    # Avoid divide-by-zero (just in case)
+    if abs(denom) < 1e-6:
+        denom = 1e-6
+
+    a = ((-b * vel + F) * (I + m * l**2) + m * l * sin_theta *
+         (omega**2 * (I + m * l**2) + g * m * l * cos_theta)) / denom
+
+    alpha = (2 * l * m * (g * (M + m) * sin_theta +
+             cos_theta * (-b * vel + F + omega**2 * l * m * sin_theta))) / \
+            (-2 * I * (m + M) - l**2 * m * (m + 2 * M) + l**2 * m**2 * np.cos(2 * theta))
+
+    dx = np.zeros_like(x)
+    dx[0] = vel
+    dx[1] = a
+    dx[2] = omega
+    dx[3] = alpha
+
+    return dx.astype(np.float32)
+
 # Parameters from Processing sketch
 g = 9.81
 M = 0.5
@@ -24,8 +60,10 @@ dt = 0.05
 K = np.array([-1.0000, -1.6567, 18.6854, 3.4594], dtype=np.float32)
 reference = np.array([0.0, 0.0, math.pi, 0.0], dtype=np.float32)
 
-pend = openpid.PendulumOnCart(M, m, l, b, I, g)
-pend.reset(x0=1.5, v0=0.0, theta0=math.pi + 0.01, omega0=0.2)
+# pend = openpid.PendulumOnCart(M, m, l, b, I, g)
+# pend.reset(x0=1.5, v0=0.0, theta0=math.pi + 0.01, omega0=0.2)
+x0 = np.array([1.5, 0.0, math.pi + 0.01, 0.2], dtype=np.float32)
+pend = openpid.GenericSystem(pendulum_cart_dynamics, x0)
 sf = openpid.StateFeedback(K)
 sf.set_reference(reference)
 
@@ -34,19 +72,30 @@ times, angles, positions, forces = [], [], [], []
 
 for i in range(steps):
     t = i * dt
-    state = np.array([
-        pend.get_position(),
-        pend.get_velocity(),
-        pend.get_angle(),
-        pend.get_angular_velocity()
-    ], dtype=np.float32)
+    state = pend.get_state()
     F = sf.compute(state)
-    pend.update(F, dt)
+    pend.update(np.array([F], dtype=np.float32), dt)
 
     times.append(t)
     angles.append(state[2])
     positions.append(state[0])
     forces.append(F)
+
+# for i in range(steps):
+#     t = i * dt
+#     state = np.array([
+#         pend.get_position(),
+#         pend.get_velocity(),
+#         pend.get_angle(),
+#         pend.get_angular_velocity()
+#     ], dtype=np.float32)
+#     F = sf.compute(state)
+#     pend.update(F, dt)
+
+#     times.append(t)
+#     angles.append(state[2])
+#     positions.append(state[0])
+#     forces.append(F)
 
 # Layout: stacked rows
 fig = make_subplots(

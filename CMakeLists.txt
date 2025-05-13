@@ -13,7 +13,6 @@ add_subdirectory(external/eigen)  # Make sure Eigen is added here
 # Create the core library
 add_library(pid_lib
     src/pid.cpp
-    src/missile_6dof_quat.cpp  # moved to src/
 )
 
 # Link Eigen to pid_lib (modern CMake)

@@ -248,30 +248,6 @@ examples/example_pid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/example_pid.dir/build.make CMakeFiles/example_pid.dir/examples/example_pid.cpp.s
 .PHONY : examples/example_pid.cpp.s
 
-src/missile_6dof_quat.o: src/missile_6dof_quat.cpp.o
-.PHONY : src/missile_6dof_quat.o
-
-# target to build an object file
-src/missile_6dof_quat.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pid_lib.dir/build.make CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.o
-.PHONY : src/missile_6dof_quat.cpp.o
-
-src/missile_6dof_quat.i: src/missile_6dof_quat.cpp.i
-.PHONY : src/missile_6dof_quat.i
-
-# target to preprocess a source file
-src/missile_6dof_quat.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pid_lib.dir/build.make CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.i
-.PHONY : src/missile_6dof_quat.cpp.i
-
-src/missile_6dof_quat.s: src/missile_6dof_quat.cpp.s
-.PHONY : src/missile_6dof_quat.s
-
-# target to generate assembly for a file
-src/missile_6dof_quat.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pid_lib.dir/build.make CMakeFiles/pid_lib.dir/src/missile_6dof_quat.cpp.s
-.PHONY : src/missile_6dof_quat.cpp.s
-
 src/pid.o: src/pid.cpp.o
 .PHONY : src/pid.o
 
@@ -317,9 +293,6 @@ help:
 	@echo "... examples/example_pid.o"
 	@echo "... examples/example_pid.i"
 	@echo "... examples/example_pid.s"
-	@echo "... src/missile_6dof_quat.o"
-	@echo "... src/missile_6dof_quat.i"
-	@echo "... src/missile_6dof_quat.s"
 	@echo "... src/pid.o"
 	@echo "... src/pid.i"
 	@echo "... src/pid.s"
