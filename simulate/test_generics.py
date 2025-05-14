@@ -47,6 +47,10 @@ def pendulum_cart_dynamics(x, u):
 
     return dx.astype(np.float32)
 
+# Define the same full-state feedback control law in Python
+def control_fn(x, r):
+    return -np.dot(K, x - r)
+
 # Parameters from Processing sketch
 g = 9.81
 M = 0.5
@@ -64,8 +68,8 @@ reference = np.array([0.0, 0.0, math.pi, 0.0], dtype=np.float32)
 # pend.reset(x0=1.5, v0=0.0, theta0=math.pi + 0.01, omega0=0.2)
 x0 = np.array([1.5, 0.0, math.pi + 0.01, 0.2], dtype=np.float32)
 pend = openpid.GenericSystem(pendulum_cart_dynamics, x0)
-sf = openpid.StateFeedback(K)
-sf.set_reference(reference)
+controller = openpid.GenericController(control_fn)
+controller.set_reference(reference)
 
 steps = 160
 times, angles, positions, forces = [], [], [], []
@@ -73,29 +77,13 @@ times, angles, positions, forces = [], [], [], []
 for i in range(steps):
     t = i * dt
     state = pend.get_state()
-    F = sf.compute(state)
+    F = controller.compute(state)
     pend.update(np.array([F], dtype=np.float32), dt)
 
     times.append(t)
     angles.append(state[2])
     positions.append(state[0])
     forces.append(F)
-
-# for i in range(steps):
-#     t = i * dt
-#     state = np.array([
-#         pend.get_position(),
-#         pend.get_velocity(),
-#         pend.get_angle(),
-#         pend.get_angular_velocity()
-#     ], dtype=np.float32)
-#     F = sf.compute(state)
-#     pend.update(F, dt)
-
-#     times.append(t)
-#     angles.append(state[2])
-#     positions.append(state[0])
-#     forces.append(F)
 
 # Layout: stacked rows
 fig = make_subplots(
